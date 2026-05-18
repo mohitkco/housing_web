@@ -6,22 +6,25 @@
   "author": "",
   "type": "commonjs",
   "main": "app.js",
+ 
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
+  "start": "node app.js",
+  "build": "npx tailwindcss -i ./views/input.css -o ./public/output.css --minify"
+}
+  ,
   "dependencies": {
     "@tailwindcss/cli": "^4.1.17",
     "bcryptjs": "^3.0.3",
     "connect-mongodb": "^1.1.5",
     "connect-mongodb-session": "^3.1.1",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "express-validator": "^7.3.1",
     "mongodb": "^6.21.0",
     "mongoose": "^9.1.1",
-    "multer": "^2.0.2",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.16.0",
     "nodemon": "^3.1.10",
     "session": "^0.1.0",
