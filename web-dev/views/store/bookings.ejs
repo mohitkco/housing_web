@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bookings</title>
+
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="/output.css">
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-white to-blue-200 text-gray-800">
+
+<%- include('../partials/navbar') %>
+
+  <!-- 🧱 Main Content -->
+  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
+
+    <h1 class="text-3xl font-bold mb-8">Your Bookings</h1>
+
+    <!-- 📦 Booking Card -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6 flex flex-col md:flex-row gap-6">
+      <img
+        src="https://via.placeholder.com/300x200"
+        alt="Home"
+        class="w-full md:w-64 h-40 object-cover rounded-lg"
+      />
+
+      <div class="flex-grow">
+        <h2 class="text-xl font-semibold">Cozy Apartment in Delhi</h2>
+        <p class="text-gray-600 mt-1">2 Guests · 1 Bedroom · 1 Bathroom</p>
+
+        <div class="mt-4 text-sm text-gray-500">
+          <p><strong>Check-in:</strong> 12 Mar 2025</p>
+          <p><strong>Check-out:</strong> 15 Mar 2025</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-between items-end">
+        <span class="text-green-600 font-semibold">Confirmed</span>
+        <button class="mt-4 px-4 py-2 text-sm rounded-lg bg-red-500 text-white hover:bg-red-600 transition">
+          Cancel Booking
+        </button>
+      </div>
+    </div>
+
+    <!-- 📦 Booking Card -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6 flex flex-col md:flex-row gap-6">
+      <img
+        src="https://via.placeholder.com/300x200"
+        alt="Home"
+        class="w-full md:w-64 h-40 object-cover rounded-lg"
+      />
+
+      <div class="flex-grow">
+        <h2 class="text-xl font-semibold">Beach House in Goa</h2>
+        <p class="text-gray-600 mt-1">4 Guests · 2 Bedrooms · Sea View</p>
+
+        <div class="mt-4 text-sm text-gray-500">
+          <p><strong>Check-in:</strong> 22 Apr 2025</p>
+          <p><strong>Check-out:</strong> 27 Apr 2025</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-between items-end">
+        <span class="text-yellow-600 font-semibold">Upcoming</span>
+        <button class="mt-4 px-4 py-2 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- ❌ Empty State (use later with condition) -->
+    <!--
+    <div class="text-center text-gray-600 mt-20">
+      <h2 class="text-2xl font-semibold">No bookings yet</h2>
+      <p class="mt-2">Start exploring homes and make your first booking.</p>
+    </div>
+    -->
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

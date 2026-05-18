@@ -1,0 +1,86 @@
+  <!-- 🌐 User Navbar -->
+  <nav class="w-full bg-white/80 backdrop-blur shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a class="text-xl font-semibold text-blue-600" href="/">
+        Airbnb
+      </a>
+
+      <div class="space-x-6 text-sm font-medium">
+
+      <% if (isLoggedIn) { %>
+        <% if( user && user.userType === 'guest') { %>
+
+      <a href="/bookings"
+   class="<%= path === '/bookings'
+     ? 'text-blue-600 font-semibold'
+     : 'text-gray-600 hover:text-blue-500' %> transition">
+  Bookings
+</a>
+
+<a href="/favourites"
+   class="<%= path === '/favourites'
+     ? 'text-blue-600 font-semibold'
+     : 'text-gray-600 hover:text-blue-500' %> transition">
+  Favourites
+</a>
+     <% } else { %>
+           <a href="/host/add-home"    class="<%= path === '/host/add-home'
+     ? 'text-blue-600 font-semibold'
+     : 'text-gray-600 hover:text-blue-500' %> transition" class="text-gray-600 hover:text-blue-500 transition">Add Home</a>
+        <a href="/host/list-home" class="<%= path === '/host/list-home'
+     ? 'text-blue-600 font-semibold'
+     : 'text-gray-600 hover:text-blue-500' %> transition" class="text-gray-600 hover:text-blue-500 transition">Home List</a>
+
+<% } %>
+
+<% } %>
+
+   <% if(!isLoggedIn){ %>
+        <a href="/login" 
+           class="<%= path === '/login'
+     ? 'text-red-600 font-semibold'
+     : 'text-gray-600 hover:text-red-500' %> transition"
+        class="text-gray-600 hover:text-red-500 transition">
+          Login
+        </a>
+        
+      <a href="/signup" 
+           class="<%= path === '/signup'
+     ? 'text-red-600 font-semibold'
+     : 'text-gray-600 hover:text-red-500' %> transition"
+        class="text-gray-600 hover:text-red-500 transition">
+          Signup
+        </a>
+
+     <% }else{ %>
+
+   <% if (isLoggedIn && user) { %>
+  <div class="inline-flex items-center gap-4">
+    
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">
+      <%= user.userType === 'host' ? 'Host' : 'Guest' %>
+      ·
+      <%= user.firstName %>
+    </span>
+
+    <form action="/logout" method="POST" class="inline">
+      <button
+        type="submit"
+        class="<%= path === '/logout'
+          ? 'text-blue-600 font-semibold'
+          : 'text-gray-600 hover:text-red-500' %> transition">
+        Logout
+      </button>
+    </form>
+
+  </div>
+<% } %>
+
+
+
+      
+
+      <% } %>
+      </div>
+    </div>
+  </nav>

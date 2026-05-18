@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= editing ? "Edit Home" : "Add Home" %> • Airbnb Admin</title>
+  <link rel="stylesheet" href="/output.css" />
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-blue-100 text-gray-800">
+
+  
+ <%- include('../partials/navbar') %>
+
+  <!-- 🧱 Main Content -->
+  <main class="flex-grow flex items-center justify-center px-4 py-12">
+    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-xl w-full">
+
+      <h2 class="text-3xl font-bold text-blue-600 mb-2">
+        <%= editing ? "Edit Your Home" : "Register Your Home" %>
+      </h2>
+      <p class="text-sm text-gray-500 mb-8">
+        Fill in the details below to list your property.
+      </p>
+
+      <!-- 📝 Form -->
+      <form
+        action="/host/<%= editing ? 'edit-home' : 'add-home' %>"
+        method="POST" enctype="multipart/form-data"
+        class="space-y-5"
+      >
+      <input type="hidden" name="_id" value="<%= editing ? home._id : ''%>" />
+        <!-- Home Name -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Home Name</label>
+          <input
+            type="text"
+            name="houseName"
+            placeholder="e.g. Sea View Villa"
+            value="<%= editing ? home.houseName : '' %>"
+            class="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+
+        <!-- Location -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Location</label>
+          <input
+            type="text"
+            name="location"
+            placeholder="e.g. Goa, India"
+            value="<%= editing ? home.location : '' %>"
+            class="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+
+        <!-- Price & Rating -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Price / night (₹)</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="2500"
+              value="<%= editing ? home.price : '' %>"
+              class="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+
+         <div>
+  <label class="block text-sm font-medium mb-1">
+    Rating (1.0 – 5.0)
+  </label>
+
+  <input
+    type="number"
+    name="rating"
+    min="1"
+    max="5"
+    step="0.1"
+    placeholder="4.5"
+    value="<%= editing ? home.rating : '' %>"
+    class="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-400"
+    required
+  />
+</div>
+
+
+        </div>
+
+        <!-- Photo URL -->
+       <div class="space-y-2">
+  <label class="block text-sm font-semibold text-gray-700">
+    Photo
+  </label>
+
+  <div class="flex items-center justify-center w-full">
+    <label
+      class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-blue-300 rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition"
+    >
+      <svg
+        class="w-10 h-10 text-blue-500 mb-2"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M7 16V12m0 0V8m0 4h4m6 4V8m0 0V4m0 4h-4"
+        />
+      </svg>
+
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold text-blue-600">Click to upload</span> or drag & drop
+      </p>
+      <p class="text-xs text-gray-500 mt-1">PNG, JPG up to 5MB</p>
+
+      <input
+  type="file"
+  name="photo"
+  accept="image/jpg, image/jpeg, image/png"
+  class="hidden"
+  <%= editing ? "" : "required" %>
+/>
+
+    </label>
+  </div>
+</div>
+
+
+        <!-- break-->
+ <div>
+  <label class="block text-sm font-medium mb-1">
+    Description
+  </label>
+
+  <textarea
+    name="description"
+    rows="4"
+    placeholder="Write a short description..."
+    class="w-full px-4 py-2.5 border rounded-lg resize-none focus:ring-2 focus:ring-blue-400"
+    required
+  ><%= editing ? home.description : '' %></textarea>
+</div>
+
+      
+
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full mt-4 bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition"
+        >
+          <%= editing ? "Update Home" : "Submit Home" %>
+        </button>
+      </form>
+
+    </div>
+  </main>
+
+
+ <%- include('../partials/hostfooter') %>
+ 
+</body>
+</html>

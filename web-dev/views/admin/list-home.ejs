@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homes List • Airbnb Admin</title>
+  <link rel="stylesheet" href="/output.css" />
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-blue-100 text-gray-800">
+
+  
+ <%- include('../partials/navbar') %>
+
+  <!-- 🧱 Main Content -->
+  <main class="flex-grow px-4 py-12">
+    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-4xl mx-auto">
+
+      <h1 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-2">
+        Registered Homes
+      </h1>
+      <p class="text-center text-gray-500 mb-10">
+        Manage, review, or remove your listed properties
+      </p>
+
+      <div class="space-y-6">
+        <% if (registeredHomes.length > 0) { %>
+          <% registeredHomes.forEach(home => { %>
+
+            <div class="relative bg-blue-50/70 hover:bg-blue-100 rounded-2xl shadow-sm p-6 transition">
+
+              <!-- 🔘 Action Buttons -->
+              <div class="absolute -top-3 -right-3 flex gap-2">
+
+                <!-- ✏️ Edit Button -->
+                <a href="/host/edit-home/<%= home._id %>?editing=true"
+                   class="bg-blue-500 text-white text-xs font-bold w-7 h-7 flex items-center justify-center rounded-full shadow hover:bg-blue-600 transition"
+                   title="Edit Home">
+                  ✎
+                </a>
+
+                <!-- ❌ Delete Button -->
+                <form action="/host/delete-home/<%= home._id %>" method="POST">
+                  <button type="submit"
+                    class="bg-red-500 text-white text-xs font-bold w-7 h-7 flex items-center justify-center rounded-full shadow hover:bg-red-600 transition"
+                    title="Delete Home">
+                    &times;
+                  </button>
+                </form>
+
+              </div>
+
+              <!-- Card Content -->
+              <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+
+                <!-- Details -->
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-blue-700 mb-3 flex items-center gap-2">
+                    🏠 <%= home.houseName %>
+                  </h3>
+                  <ul class="text-gray-700 text-sm space-y-1 ml-7">
+                    <li><strong>📍 Location:</strong> <%= home.location %></li>
+                    <li><strong>💰 Price:</strong> ₹<%= home.price %> / night</li>
+                    <li><strong>⭐ Rating:</strong> <%= home.rating %></li>
+                  </ul>
+                </div>
+
+                <!-- Image -->
+                <div class="flex-shrink-0">
+                  <img src="<%= home.photo %>" alt="Home Image"
+                       class="w-36 h-36 object-cover rounded-xl shadow-md border border-blue-100 hover:scale-105 transition-transform duration-300" />
+                </div>
+
+              </div>
+            </div>
+
+          <% }) %>
+        <% } else { %>
+          <p class="text-gray-500 italic text-center py-10">
+            No homes registered yet.
+          </p>
+        <% } %>
+      </div>
+
+    </div>
+  </main>
+
+  
+ <%- include('../partials/hostfooter') %>
+
+</body>
+</html>
