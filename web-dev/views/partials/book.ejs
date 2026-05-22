@@ -1,0 +1,22 @@
+<% if(isLoggedIn && user && user.userType === 'guest') { %>
+
+<!-- <form action="/bookings" method="GET" class="mt-4 ml-8">
+  <input type="hidden" name="homeId" value="<%= home._id %>">
+
+  <button
+    type="submit"
+    class="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600
+           text-white font-semibold rounded-lg shadow-md hover:from-green-600 hover:to-emerald-700 transition">
+    Book
+  </button>
+</form> -->
+<form action="/bookings" method="POST" class="inline">
+  <!-- This hidden input puts 'homeId' into req.body -->
+  <input type="hidden" name="homeId" value="<%= home._id %>">
+  
+  <button type="submit" class="mt-4 inline-block w-48 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg shadow hover:bg-blue-600 transition ml-7 text-center">
+    Book Now
+  </button>
+</form>
+
+<% } %>

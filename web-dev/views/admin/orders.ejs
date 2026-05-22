@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/output.css" />
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-white to-blue-200 text-gray-800 antialiased">
+
+  <%- include('../partials/navbar') %>
+
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+    <div class="bg-white p-6 md:p-10 rounded-2xl shadow-xl">
+      
+      <div class="border-b border-gray-100 pb-5 mb-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+          Incoming Booking Orders
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">Manage, track, and update confirmation parameters for guest reservations.</p>
+      </div>
+
+      <% if (orders.length > 0) { %>
+        <div class="space-y-6">
+          <% orders.forEach(order => { %>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center border border-blue-50/60 bg-gradient-to-r from-blue-50/40 to-white hover:from-blue-50/80 p-6 rounded-2xl shadow-sm transition-all duration-300">
+              
+              <div class="md:col-span-2 space-y-3">
+                <h3 class="text-2xl font-bold text-blue-700 flex items-center gap-2">
+                  🏠 <%= order.homeId?.houseName ? order.homeId.houseName : 'Deleted Property' %>
+                </h3>
+                
+                <ul class="text-gray-600 text-sm space-y-2 ml-1">
+                  <li class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-800 w-24">📍 Location:</span> 
+                    <%= order.homeId?.location ? order.homeId.location : 'N/A' %>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-800 w-24">👤 Guest Email:</span> 
+                    <span class="bg-gray-100 text-gray-700 font-mono px-2 py-0.5 rounded text-xs">
+                      <%= order.guestId?.email ? order.guestId.email : 'Unknown Guest' %>
+                    </span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-800 w-24">⚙️ Order Status:</span>
+                    <% if (order.status === 'Booked') { %>
+                      <span style="background-color: #dcfce7; color: #15803d;" class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                        ✓ Booked
+                      </span>
+                    <% } else if (order.status === 'Paid') { %>
+                      <span style="background-color: #ffedd5; color: #c2410c;" class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider animate-pulse">
+                        💳 Paid (Pending Approval)
+                      </span>
+                    <% } else { %>
+                      <span style="background-color: #fee2e2; color: #b91c1c;" class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                        ⏳ In Progress
+                      </span>
+                    <% } %>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="flex justify-end items-center">
+                <form action="/host/update-order-status" method="POST" class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                  <input type="hidden" name="orderId" value="<%= order._id %>">
+                  
+                  <div class="relative w-full sm:w-40">
+                    <select name="status" class="w-full appearance-none bg-white border border-gray-300 text-gray-800 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+                      <option value="In Progress" <%= order.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                      <option value="Paid" <%= order.status === 'Paid' ? 'selected' : '' %>>Paid</option>
+                      <option value="Booked" <%= order.status === 'Booked' ? 'selected' : '' %>>Booked</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" 
+                          style="background-color: #1e293b !important; color: #ffffff !important;"
+                          class="w-full sm:w-auto text-center px-5 py-2.5 text-sm font-semibold rounded-xl shadow-md hover:bg-slate-700 transition duration-200">
+                    Update
+                  </button>
+                </form>
+              </div>
+
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-16 px-4 border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/50">
+          <div class="text-5xl mb-4">📭</div>
+          <h3 class="text-lg font-bold text-gray-700 mb-1">No Orders Found</h3>
+          <p class="text-gray-400 text-sm max-w-sm mx-auto italic">
+            No reservation orders have been placed for your listings by any guests yet.
+          </p>
+        </div>
+      <% } %>
+
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

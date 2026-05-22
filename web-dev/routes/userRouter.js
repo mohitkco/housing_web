@@ -6,11 +6,12 @@ const userController = require('../controllers/userController');
 
 userRouter.get("/",userController.user);
 // Bookings page
-userRouter.get("/bookings", userController.bookings);
+userRouter.get("/bookings", userController.getBookings);
+userRouter.post("/bookings", userController.postAddBookings);
 // Favourites page
 //userRouter.get("/favourites", userController.favourites);
 userRouter.post('/favourites', userController.postAddFavourite);
-
+userRouter.post('/payment/:homeId',userController.postPayment);
 // Show favourites
 userRouter.get('/favourites', userController.getFavourites);
 userRouter.post('/favourites/delete/:homeId', userController.postRemoveFromFavourite);

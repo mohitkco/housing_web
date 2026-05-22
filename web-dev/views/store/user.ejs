@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +10,6 @@
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-white to-blue-200 text-gray-800">
 
 <%- include('../partials/navbar') %>
-  <!-- 🧱 Main Content -->
   <main class="flex-grow flex items-center justify-center px-4 py-10">
 
     <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-3xl">
@@ -27,35 +26,46 @@
           <% registeredHomes.forEach(home => { %>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center bg-blue-50 hover:bg-blue-100 rounded-xl shadow-sm p-5 transition">
 
-              <!-- Left: Details -->
               <div class="sm:col-span-2">
                 <h3 class="text-xl font-semibold text-blue-700 mb-2 flex items-center gap-2">
                   🏠 <%= home.houseName %>
                 </h3>
 
-                <ul class="text-gray-700 text-base space-y-1 ml-7">
+                <ul class="text-gray-700 text-base space-y-1 ml-7 mb-4">
                   <li><span class="font-medium">📍 Location:</span> <%= home.location %></li>
                   <li><span class="font-medium">💰 Price:</span> ₹<%= home.price %></li>
                   <li><span class="font-medium">⭐ Rating:</span> <%= home.rating %></li>
                 </ul>
 
-                <!-- <a href="/book/<%= home._id %>"
-                   class="mt-4 inline-block w-48 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg shadow hover:bg-blue-600 transition ml-7 text-center">
-                   Add to favourites
-                </a> -->
-                 <%- include('../partials/favourite', {
-                  home: home,
-                  isLoggedIn: isLoggedIn,
-                  user: user
+                <% if (home.status === 'Booked') { %>
+                  
+                  <div style="background-color: #94a3b8 !important; color: #ffffff !important; display: inline-block !important; width: 12rem !important; padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; font-size: 0.875rem !important; font-weight: 600 !important; text-align: center !important; border-radius: 0.5rem !important; box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important; cursor: not-allowed !important; user-select: none !important; margin-left: 1.75rem !important;"
+                       onmouseover="this.style.cursor='not-allowed';">
+                    🚫 Already Booked
+                  </div>
+
+                <% } else { %>
+                  
+                  <%- include('../partials/favourite', {
+                    home: home,
+                    isLoggedIn: isLoggedIn,
+                    user: user
+                  }) %>
+                  
+                  <%- include('../partials/book', {
+                    home: home,
+                    isLoggedIn: isLoggedIn,
+                    user: user
                   }) %>
 
-                  <a href="/book/<%= home._id %>"
+                <% } %>
+
+                <a href="/book/<%= home._id %>"
                    class="mt-4 inline-block w-48 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg shadow hover:bg-blue-600 transition ml-7 text-center">
-                   Details
-                  </a>
+                  Details
+                </a>
               </div>
 
-              <!-- Right: Image -->
               <div class="flex justify-center sm:justify-end">
                 <img src="<%= home.photo %>" alt="Home Image"
                      class="w-32 h-32 object-cover rounded-xl shadow-md border border-blue-100 hover:scale-105 transition-transform duration-300" />

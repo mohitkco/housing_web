@@ -8,6 +8,13 @@ const homeSchema = mongoose.Schema({
   rating: {type: String, required: true},
   photo: String,
   description: String,
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  // 🔑 Add this field to track live availability
+  status: {
+    type: String,
+    enum: ['Available', 'Booked'],
+    default: 'Available'
+  }
 });
 
 // homeSchema.pre('findOneAndDelete', async function(next) {
